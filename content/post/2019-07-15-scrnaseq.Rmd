@@ -1,0 +1,251 @@
+---
+title: "Myositis-Related Intersitial Lung disease at a single cell level"
+author: Serdar Korur
+date: '2019-07-15'
+slug: scrnaseq
+categories: []
+tags:
+  - Clustering
+  - pca
+  - tsne
+  - seurat
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2019-07-15T16:41:47+02:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Let's explore gene expression and cellular subtypes in fibrosis: Hints from single cell level
+
+## "What can we learn from a Myositis-Related Intersitial Lung disease patient [data?](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)"
+
+I used the data from a recent [paper](https://www.atsjournals.org/doi/pdf/10.1164/rccm.201712-2410OC) to explore genomic landscape in a particular patient with Pulmonary fibrosis. 
+
+To make my own analyses I picked up the data from a patient with PM-ILD. 
+
+ ---> [Download Single Cell RNA seq data](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3489196)
+
+## Preparations
+
+### Load the necessary packages
+
+```{r, loading_packages, warning=FALSE, message=FALSE}
+library(Seurat)
+library(dplyr)
+library(ggplot2)
+```
+
+### Read the Data with **Read10X_h5** function and Create the Seurat object 
+
+```{r  warning=FALSE}
+MyoILD_01 <- Read10X_h5("GSM3489196_Myositis-ILD_01_filtered_gene_bc_matrices_h5.h5")
+Fib <- CreateSeuratObject(counts = MyoILD_01, min.cells = 3, project= "FightFibrosis", min.features = 200)
+Fib
+a <- dim(Fib)
+```
+Our Data matrix now contains `r a[1]` genes and `r a[2]` cells
+
+
+## Let's have a Quick look at the raw count data
+
+```{r, warning = FALSE, message=FALSE}
+# Lets examine a few genes in the first thirty cells
+MyoILD_01[c("SPP1","TGFB1","CCL2"), 1:30]
+
+```
+
+### Standard pre-processing workflow for scRNA-seq data
+
+Pre-processing involves filtration of cells based on Quality control metrics (e.g .mitochondrial contamination, Coverage).  We will proceed by normalization and identification of the highly variable features then at the end we will scale the data. 
+
+
+#### QC and selecting cells for further analysis
+
+```{r mito, fig.height=7, fig.width=13}
+# Let's add Mitochondrial stats to Fib data. [[ operator can add columns to object metadata. 
+
+Fib[["percent.mt"]] <- PercentageFeatureSet(object = Fib, pattern = "^MT-")
+```
+
+```{r qc, fig.height=7, fig.width=13}
+# Quick look at the Quality control metrics for the first 5 cells
+head(x = Fib@meta.data, 5)
+```
+
+#### Visualize QC metrics
+
+```{r qc2, fig.height=7, fig.width=13}
+#Visualize QC metrics as a violin plot
+VlnPlot(object = Fib, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+
+# We will use FeatureScatter to visualize feature-feature relationships, but can be used for anything calculated  by the object, i.e. columns in object metadata, PC scores etc.
+plot1 <- FeatureScatter(object = Fib, feature1 = "nCount_RNA", feature2 = "percent.mt") 
+plot2 <- FeatureScatter(object = Fib, feature1 = "nCount_RNA", feature2 = "nFeature_RNA") 
+CombinePlots(plots = list(plot1,plot2))
+# As you see on the left plot cells with high percentage of mitochondrial genes have very low numbers of RNA indicating that they are low quality/dead cells. Let's remove them.
+Fib <- subset(x = Fib, subset = nFeature_RNA > 200 & nFeature_RNA < 4000 & percent.mt < 12.5)
+```
+
+
+#### Normalize the data
+
+Log normalization helps to reduce the influences of the outliers. Normalized values will be stored in `Fib[["RNA"]]@data`.
+
+```{r normalize, warning = FALSE, message=FALSE}
+Fib <- NormalizeData(object = Fib, normalization.method = "LogNormalize", scale.factor = 1e4)
+```
+
+#### Identify highly variable features
+
+Let's calculate the features that exhibit high cell-to-cell variation in the dataset. Focusing on those genes will help to highlight biological signal.
+```{r var_features, fig.height=5, fig.width=11, warning = FALSE, message=FALSE}
+Fib <- FindVariableFeatures(object = Fib, selection.method = 'vst', nfeatures = 2000)
+
+# Identify the 10 most highly variable genes
+top10 <- head(x = VariableFeatures(object = Fib), 10)
+top10
+# Plot variable features with and without labels
+plot1 <- VariableFeaturePlot(object = Fib)
+plot2 <- LabelPoints(plot = plot1, points = top10, repel = TRUE)
+CombinePlots(plots = list(plot1, plot2))
+```
+
+
+#### Scale the data
+
+Next, apply a linear transformation  that is a standard pre-processing step prior to dimensional reduction techniques like PCA. The `ScaleData` function:
+
+* Shifts the expression of each gene, so that the mean expression across cells is 0
+* Scales the expression of each gene, so that the variance across cells is 1
+    + **This step gives equal weight in downstream analyses, so that highly-expressed genes do not dominate**
+    Any systematic difference in count size across the non-DE majority of genes between two cells is assumed to represent bias and is removed by scaling.
+* The results of this are stored in `Fib[["RNA"]]@scale.data`
+
+```{r scaledata, warning = FALSE, message=FALSE}
+all.genes <- rownames(x = Fib)
+Fib <- ScaleData(object = Fib, features = all.genes)
+```
+
+
+```{r regress, warning = FALSE, message=FALSE}
+# A list of cell cycle markers, from Tirosh et al, 2015, is loaded with Seurat.  We can
+# segregate this list into markers of G2/M phase and markers of S phase
+s.genes <- cc.genes$s.genes
+g2m.genes <- cc.genes$g2m.genes
+Fib <- CellCycleScoring(Fib, s.features = s.genes, g2m.features = g2m.genes, set.ident = TRUE)
+
+# view cell cycle scores and phase assignments
+head(Fib[[]])
+
+# Regress out cell cycle scores during data scaling
+Fib <- ScaleData(Fib, vars.to.regress = c("S.Score", "G2M.Score"), features = rownames(Fib))
+```
+
+
+### Perform linear dimensional reduction
+
+Next we perform PCA on the scaled data. 
+
+```{r pca,results='hide'}
+Fib <- RunPCA(object = Fib, features = VariableFeatures(object = Fib), ndims.print = 10, nfeatures.print = 10)
+```
+
+#### Visualize the PCA results
+```{r pca_viz, message=TRUE}
+# Examine and visualize PCA results a few different ways
+print(x = Fib[['pca']], dims = 1:5, nfeatures = 5)
+VizDimLoadings(object = Fib, dims = 1:2, reduction = 'pca')
+DimPlot(object = Fib, reduction = 'pca')
+```
+
+```{r multi-heatmap, fig.height=12, fig.width=9}
+DimHeatmap(object = Fib, dims = 1, cells = 500, balanced = TRUE)
+DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)
+```
+
+
+### Determine the 'dimensionality' of the dataset
+
+To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a 'metafeature' that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset.
+
+We will 'Elbow plot' to determine the dimensionalitz of this dataset: a ranking of principle components based on the percentage of variance explained by each one (`ElbowPlot` function). In this example, we can observe an 'elbow' around PC9-10, suggesting that the majority of true signal is captured in the first 10 PCs. 
+
+```{r elbow_plot, fig.height=6, fig.width=10}
+ElbowPlot(object = Fib)
+```
+
+### Cluster the cells
+
+Seurat v3 applies a graph-based clustering approach, building upon initial strategies in ([Macosko *et al*](http://www.cell.com/abstract/S0092-8674(15)00549-8)).
+```{r cluster, fig.height=5, fig.width=7, warning = FALSE}
+Fib <- FindNeighbors(object = Fib, dims = 1:10)
+Fib <- FindClusters(object = Fib, resolution = 0.5)
+
+# Look at cluster IDs of the first 5 cells
+head(Idents(Fib), 5)
+```
+
+### TSNE plot
+
+```{r TSNE plot}
+Fib <- RunTSNE(object = Fib, dims = 1:6)
+DimPlot(object = Fib, reduction = 'tsne', label = TRUE, label.size = 5)
+```
+
+
+
+### Finding differentially expressed features (cluster biomarkers)
+
+
+The `min.pct` argument requires a feature to be detected at a minimum percentage in either of the two groups of cells. 
+
+```{r markers1, fig.height=8, fig.width=15, message = FALSE, warning = FALSE}
+# Find all markers of cluster 0
+cluster0.markers <- FindMarkers(object = Fib, ident.1 = 0, min.pct = 0.25)
+head(x = cluster0.markers, n = 10)
+
+# Find markers for every cluster compared to all remaining cells, report only the positive ones
+Fib.markers <- FindAllMarkers(object = Fib, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+Fib.markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_logFC) %>% print(n = 85)
+```
+
+Seurat has several tests for differential expression which can be set with the test.use parameter (see our [DE vignette](http://satijalab01.nygenome.org/seurat/v3.0/de_vignette.html) for details). For example, the ROC test returns the 'classification power' for any individual marker (ranging from 0 - random, to 1 - perfect).
+
+
+
+```{r tsnewithcellids, fig.height=8, fig.width=15}
+# Assigning Cell ids
+new.cluster.ids <- c("Macrophages(C1)", "Macrophages(C2)", "Macrophages(C3)", "AT2(C1) Cells", "Cliated Cells", "Basal Cells", "Club Cells", "Dendritic Cells", "NA", "AT2(C2) Cells", "Fibroblasts", "Mast(T1) Cells", "Monocytes", "T/NKT Cells", "Mast(C2) Cells")
+names(new.cluster.ids) <- levels(Fib)
+Fib <- RenameIdents(Fib, new.cluster.ids)
+DimPlot(Fib, reduction = "tsne", label = TRUE, label.size = 6, pt.size = 1.0) + NoLegend()
+```
+
+
+
+```{r differentfeautures}
+
+# Let's look at the epxression of a few genes of interest accross different subtypes
+VlnPlot(Fib, features = c("SPP1", "CHIT1"))
+
+FeaturePlot(Fib, features = c("SPP1", "APOE", "SCGB3A2", "C9orf24", "S100A2", "BPIFB1", "S100B", "COL3A1", "FCN1"))
+```
+
+
+```{r markersroc}
+top10 <- Fib.markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_logFC)
+DoHeatmap(Fib, features = top10$gene) + NoLegend()
+```
+
+
+
