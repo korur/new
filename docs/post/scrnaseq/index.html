@@ -15,9 +15,13 @@
   
   
   
+    
+    
+    
+  
   
 
-  
+  <meta name="author" content="Serdar Korur">
 
   
   
@@ -575,12 +579,12 @@ head(x = Fib@meta.data, 5)</code></pre>
 <h4>Visualize QC metrics</h4>
 <pre class="r"><code>#Visualize QC metrics as a violin plot
 VlnPlot(object = Fib, features = c(&quot;nFeature_RNA&quot;, &quot;nCount_RNA&quot;, &quot;percent.mt&quot;), ncol = 3)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/qc2-1.png" width="1248" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-1.png" width="1248" /></p>
 <pre class="r"><code># We will use FeatureScatter to visualize feature-feature relationships, but can be used for anything calculated  by the object, i.e. columns in object metadata, PC scores etc.
 plot1 &lt;- FeatureScatter(object = Fib, feature1 = &quot;nCount_RNA&quot;, feature2 = &quot;percent.mt&quot;) 
 plot2 &lt;- FeatureScatter(object = Fib, feature1 = &quot;nCount_RNA&quot;, feature2 = &quot;nFeature_RNA&quot;) 
 CombinePlots(plots = list(plot1,plot2))</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/qc2-2.png" width="1248" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-2.png" width="1248" /></p>
 <pre class="r"><code># As you see on the left plot cells with high percentage of mitochondrial genes have very low numbers of RNA indicating that they are low quality/dead cells. Let&#39;s remove them.
 Fib &lt;- subset(x = Fib, subset = nFeature_RNA &gt; 200 &amp; nFeature_RNA &lt; 4000 &amp; percent.mt &lt; 12.5)</code></pre>
 </div>
@@ -603,7 +607,7 @@ top10</code></pre>
 plot1 &lt;- VariableFeaturePlot(object = Fib)
 plot2 &lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)
 CombinePlots(plots = list(plot1, plot2))</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/var_features-1.png" width="1056" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/var_features-1.png" width="1056" /></p>
 </div>
 <div id="scale-the-data" class="section level4">
 <h4>Scale the data</h4>
@@ -649,6 +653,9 @@ Fib &lt;- ScaleData(Fib, vars.to.regress = c(&quot;S.Score&quot;, &quot;G2M.Scor
 <h3>Perform linear dimensional reduction</h3>
 <p>Next we perform PCA on the scaled data.</p>
 <pre class="r"><code>Fib &lt;- RunPCA(object = Fib, features = VariableFeatures(object = Fib), ndims.print = 10, nfeatures.print = 10)</code></pre>
+<pre><code>## PC_ 10 
+## Positive:  VCAN, MCEMP1, S100A8, FCN1, CD2, IL32, S100A6, TIMP1, CCL5, CD3D 
+## Negative:  CHIT1, A2M, CHCHD6, AC079767.4, SEPP1, ALOX15B, GPNMB, DNASE2B, LIPA, SLC40A1</code></pre>
 <div id="visualize-the-pca-results" class="section level4">
 <h4>Visualize the PCA results</h4>
 <pre class="r"><code># Examine and visualize PCA results a few different ways
@@ -669,13 +676,13 @@ print(x = Fib[[&#39;pca&#39;]], dims = 1:5, nfeatures = 5)</code></pre>
 ## Positive:  CPA3, TPSAB1, TPSB2, MS4A2, GATA2 
 ## Negative:  S100A6, CSTB, S100A10, GCHFR, TXN</code></pre>
 <pre class="r"><code>VizDimLoadings(object = Fib, dims = 1:2, reduction = &#39;pca&#39;)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-1.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-1.png" width="672" /></p>
 <pre class="r"><code>DimPlot(object = Fib, reduction = &#39;pca&#39;)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-2.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-2.png" width="672" /></p>
 <pre class="r"><code>DimHeatmap(object = Fib, dims = 1, cells = 500, balanced = TRUE)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-1.png" width="864" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-1.png" width="864" /></p>
 <pre class="r"><code>DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-2.png" width="864" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-2.png" width="864" /></p>
 </div>
 </div>
 <div id="determine-the-dimensionality-of-the-dataset" class="section level3">
@@ -683,7 +690,7 @@ print(x = Fib[[&#39;pca&#39;]], dims = 1:5, nfeatures = 5)</code></pre>
 <p>To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset.</p>
 <p>We will ‘Elbow plot’ to determine the dimensionalitz of this dataset: a ranking of principle components based on the percentage of variance explained by each one (<code>ElbowPlot</code> function). In this example, we can observe an ‘elbow’ around PC9-10, suggesting that the majority of true signal is captured in the first 10 PCs.</p>
 <pre class="r"><code>ElbowPlot(object = Fib)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/elbow_plot-1.png" width="960" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/elbow_plot-1.png" width="960" /></p>
 </div>
 <div id="cluster-the-cells" class="section level3">
 <h3>Cluster the cells</h3>
@@ -713,7 +720,7 @@ head(Idents(Fib), 5)</code></pre>
 <h3>TSNE plot</h3>
 <pre class="r"><code>Fib &lt;- RunTSNE(object = Fib, dims = 1:6)
 DimPlot(object = Fib, reduction = &#39;tsne&#39;, label = TRUE, label.size = 5)</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/TSNE%20plot-1.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/TSNE%20plot-1.png" width="672" /></p>
 </div>
 <div id="finding-differentially-expressed-features-cluster-biomarkers" class="section level3">
 <h3>Finding differentially expressed features (cluster biomarkers)</h3>
@@ -820,15 +827,15 @@ new.cluster.ids &lt;- c(&quot;Macrophages(C1)&quot;, &quot;Macrophages(C2)&quot;
 names(new.cluster.ids) &lt;- levels(Fib)
 Fib &lt;- RenameIdents(Fib, new.cluster.ids)
 DimPlot(Fib, reduction = &quot;tsne&quot;, label = TRUE, label.size = 6, pt.size = 1.0) + NoLegend()</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/tsnewithcellids-1.png" width="1440" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/tsnewithcellids-1.png" width="1440" /></p>
 <pre class="r"><code># Let&#39;s look at the epxression of a few genes of interest accross different subtypes
 VlnPlot(Fib, features = c(&quot;SPP1&quot;, &quot;CHIT1&quot;))</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-1.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-1.png" width="672" /></p>
 <pre class="r"><code>FeaturePlot(Fib, features = c(&quot;SPP1&quot;, &quot;APOE&quot;, &quot;SCGB3A2&quot;, &quot;C9orf24&quot;, &quot;S100A2&quot;, &quot;BPIFB1&quot;, &quot;S100B&quot;, &quot;COL3A1&quot;, &quot;FCN1&quot;))</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-2.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-2.png" width="672" /></p>
 <pre class="r"><code>top10 &lt;- Fib.markers %&gt;% group_by(cluster) %&gt;% top_n(n = 10, wt = avg_logFC)
 DoHeatmap(Fib, features = top10$gene) + NoLegend()</code></pre>
-<p><img src="/post/2019-07-15-scrnaseq_files/figure-html/markersroc-1.png" width="672" /></p>
+<p><img src="/new/post/2019-07-15-scrnaseq_files/figure-html/markersroc-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -862,12 +869,83 @@ DoHeatmap(Fib, features = top10$gene) + NoLegend()</code></pre>
 
 
   
+
+
+
+
+
   
   
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+      
+      <img class="portrait mr-3" src="/new/authors/admin/avatar_huc20273ad926c00177316852a0ac5eb17_12606_250x250_fill_q90_lanczos_center.jpg" itemprop="image" alt="Avatar">
+    
 
-
-
-
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="/new/">Serdar Korur</a></h5>
+      <h6 class="card-subtitle">Senior Scientist in Drug Discovery</h6>
+      <p class="card-text" itemprop="description">Serdar is a Data Scientist and PhD in Cell Biology</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/new/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/serdar-korur/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/korur/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
 
 
