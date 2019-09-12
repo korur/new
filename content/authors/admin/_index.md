@@ -66,4 +66,4 @@ user_groups:
 - Visitors
 ---
 
-Hi, I am Serdar! here is my campground for Data science projects. Let's explore the world of Data and the stories they tell. 
+Hello, I am Serdar! here is my campground for Data science projects. Let's explore the world of Data and the stories they tell. 
