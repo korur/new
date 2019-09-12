@@ -2,75 +2,75 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on SERDAR KORUR</title>
-    <link>/new/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on SERDAR KORUR</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/new/tags/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Clustering</title>
-      <link>/new/tags/clustering/</link>
+      <link>/tags/clustering/</link>
       <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/clustering/</guid>
+      <guid>/tags/clustering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>pca</title>
-      <link>/new/tags/pca/</link>
+      <link>/tags/pca/</link>
       <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/pca/</guid>
+      <guid>/tags/pca/</guid>
       <description></description>
     </item>
     
     <item>
       <title>seurat</title>
-      <link>/new/tags/seurat/</link>
+      <link>/tags/seurat/</link>
       <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/seurat/</guid>
+      <guid>/tags/seurat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tsne</title>
-      <link>/new/tags/tsne/</link>
+      <link>/tags/tsne/</link>
       <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/tsne/</guid>
+      <guid>/tags/tsne/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Source Themes</title>
-      <link>/new/tags/source-themes/</link>
+      <link>/tags/source-themes/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/source-themes/</guid>
+      <guid>/tags/source-themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Deep Learning</title>
-      <link>/new/tags/deep-learning/</link>
+      <link>/tags/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/deep-learning/</guid>
+      <guid>/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Demo</title>
-      <link>/new/tags/demo/</link>
+      <link>/tags/demo/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/new/tags/demo/</guid>
+      <guid>/tags/demo/</guid>
       <description></description>
     </item>
     

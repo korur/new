@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on SERDAR KORUR</title>
-    <link>/new/authors/</link>
+    <link>/authors/</link>
     <description>Recent content in Authors on SERDAR KORUR</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 07 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/new/authors/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>/new/authors/admin/</link>
+      <link>/authors/admin/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/authors/admin/</guid>
+      <guid>/authors/admin/</guid>
       <description>&lt;p&gt;Hello, I am Serdar! here is my campground for Data science projects. Let&amp;rsquo;s explore the world of Data and the stories they tell.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Robert Ford</title>
-      <link>/new/authors/robert-ford/</link>
+      <link>/authors/robert-ford/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>/new/authors/robert-ford/</guid>
+      <guid>/authors/robert-ford/</guid>
       <description></description>
     </item>
     

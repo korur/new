@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Courses on SERDAR KORUR</title>
-    <link>/new/courses/</link>
+    <link>/courses/</link>
     <description>Recent content in Courses on SERDAR KORUR</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     
-	    <atom:link href="/new/courses/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/courses/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Overview</title>
-      <link>/new/courses/example/</link>
+      <link>/courses/example/</link>
       <pubDate>Sun, 09 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/new/courses/example/</guid>
+      <guid>/courses/example/</guid>
       <description>
 
 &lt;h2 id=&#34;flexibility&#34;&gt;Flexibility&lt;/h2&gt;

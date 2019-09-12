@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SERDAR KORUR</title>
-    <link>/new/</link>
+    <link>/</link>
     <description>Recent content on SERDAR KORUR</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/new/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Example Page 1</title>
-      <link>/new/courses/example/example1/</link>
+      <link>/courses/example/example1/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       
-      <guid>/new/courses/example/example1/</guid>
+      <guid>/courses/example/example1/</guid>
       <description>
 
 &lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
@@ -49,10 +49,10 @@
     
     <item>
       <title>Example Page 2</title>
-      <link>/new/courses/example/example2/</link>
+      <link>/courses/example/example2/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       
-      <guid>/new/courses/example/example2/</guid>
+      <guid>/courses/example/example2/</guid>
       <description>
 
 &lt;p&gt;Here are some more tips for getting started with Academic:&lt;/p&gt;
@@ -85,10 +85,10 @@
     
     <item>
       <title>Example Talk</title>
-      <link>/new/talk/example/</link>
+      <link>/talk/example/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
       
-      <guid>/new/talk/example/</guid>
+      <guid>/talk/example/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
@@ -109,10 +109,10 @@
     
     <item>
       <title>Myositis-Related Intersitial Lung disease at a single cell level</title>
-      <link>/new/post/scrnaseq/</link>
+      <link>/post/scrnaseq/</link>
       <pubDate>Mon, 15 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/post/scrnaseq/</guid>
+      <guid>/post/scrnaseq/</guid>
       <description>
 
 
@@ -174,12 +174,12 @@ head(x = Fib@meta.data, 5)&lt;/code&gt;&lt;/pre&gt;
 &lt;h4&gt;Visualize QC metrics&lt;/h4&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#Visualize QC metrics as a violin plot
 VlnPlot(object = Fib, features = c(&amp;quot;nFeature_RNA&amp;quot;, &amp;quot;nCount_RNA&amp;quot;, &amp;quot;percent.mt&amp;quot;), ncol = 3)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-1.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-1.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# We will use FeatureScatter to visualize feature-feature relationships, but can be used for anything calculated  by the object, i.e. columns in object metadata, PC scores etc.
 plot1 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;percent.mt&amp;quot;) 
 plot2 &amp;lt;- FeatureScatter(object = Fib, feature1 = &amp;quot;nCount_RNA&amp;quot;, feature2 = &amp;quot;nFeature_RNA&amp;quot;) 
 CombinePlots(plots = list(plot1,plot2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/qc2-2.png&#34; width=&#34;1248&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# As you see on the left plot cells with high percentage of mitochondrial genes have very low numbers of RNA indicating that they are low quality/dead cells. Let&amp;#39;s remove them.
 Fib &amp;lt;- subset(x = Fib, subset = nFeature_RNA &amp;gt; 200 &amp;amp; nFeature_RNA &amp;lt; 4000 &amp;amp; percent.mt &amp;lt; 12.5)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -202,7 +202,7 @@ top10&lt;/code&gt;&lt;/pre&gt;
 plot1 &amp;lt;- VariableFeaturePlot(object = Fib)
 plot2 &amp;lt;- LabelPoints(plot = plot1, points = top10, repel = TRUE)
 CombinePlots(plots = list(plot1, plot2))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/var_features-1.png&#34; width=&#34;1056&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/var_features-1.png&#34; width=&#34;1056&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;scale-the-data&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;Scale the data&lt;/h4&gt;
@@ -271,13 +271,13 @@ print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&
 ## Positive:  CPA3, TPSAB1, TPSB2, MS4A2, GATA2 
 ## Negative:  S100A6, CSTB, S100A10, GCHFR, TXN&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;VizDimLoadings(object = Fib, dims = 1:2, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimPlot(object = Fib, reduction = &amp;#39;pca&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/pca_viz-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimHeatmap(object = Fib, dims = 1, cells = 500, balanced = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-1.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;DimHeatmap(object = Fib, dims = 1:9, cells = 500, balanced = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-2.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/multi-heatmap-2.png&#34; width=&#34;864&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;determine-the-dimensionality-of-the-dataset&#34; class=&#34;section level3&#34;&gt;
@@ -285,7 +285,7 @@ print(x = Fib[[&amp;#39;pca&amp;#39;]], dims = 1:5, nfeatures = 5)&lt;/code&gt;&
 &lt;p&gt;To overcome the extensive technical noise in any single feature for scRNA-seq data, Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metafeature’ that combines information across a correlated feature set. The top principal components therefore represent a robust compression of the dataset.&lt;/p&gt;
 &lt;p&gt;We will ‘Elbow plot’ to determine the dimensionalitz of this dataset: a ranking of principle components based on the percentage of variance explained by each one (&lt;code&gt;ElbowPlot&lt;/code&gt; function). In this example, we can observe an ‘elbow’ around PC9-10, suggesting that the majority of true signal is captured in the first 10 PCs.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ElbowPlot(object = Fib)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/elbow_plot-1.png&#34; width=&#34;960&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;cluster-the-cells&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Cluster the cells&lt;/h3&gt;
@@ -315,7 +315,7 @@ head(Idents(Fib), 5)&lt;/code&gt;&lt;/pre&gt;
 &lt;h3&gt;TSNE plot&lt;/h3&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Fib &amp;lt;- RunTSNE(object = Fib, dims = 1:6)
 DimPlot(object = Fib, reduction = &amp;#39;tsne&amp;#39;, label = TRUE, label.size = 5)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/TSNE%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/TSNE%20plot-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;finding-differentially-expressed-features-cluster-biomarkers&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Finding differentially expressed features (cluster biomarkers)&lt;/h3&gt;
@@ -422,15 +422,15 @@ new.cluster.ids &amp;lt;- c(&amp;quot;Macrophages(C1)&amp;quot;, &amp;quot;Macro
 names(new.cluster.ids) &amp;lt;- levels(Fib)
 Fib &amp;lt;- RenameIdents(Fib, new.cluster.ids)
 DimPlot(Fib, reduction = &amp;quot;tsne&amp;quot;, label = TRUE, label.size = 6, pt.size = 1.0) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/tsnewithcellids-1.png&#34; width=&#34;1440&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Let&amp;#39;s look at the epxression of a few genes of interest accross different subtypes
 VlnPlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;CHIT1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;FeaturePlot(Fib, features = c(&amp;quot;SPP1&amp;quot;, &amp;quot;APOE&amp;quot;, &amp;quot;SCGB3A2&amp;quot;, &amp;quot;C9orf24&amp;quot;, &amp;quot;S100A2&amp;quot;, &amp;quot;BPIFB1&amp;quot;, &amp;quot;S100B&amp;quot;, &amp;quot;COL3A1&amp;quot;, &amp;quot;FCN1&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/differentfeautures-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;top10 &amp;lt;- Fib.markers %&amp;gt;% group_by(cluster) %&amp;gt;% top_n(n = 10, wt = avg_logFC)
 DoHeatmap(Fib, features = top10$gene) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/new/new/post/2019-07-15-scrnaseq_files/figure-html/markersroc-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/new/post/2019-07-15-scrnaseq_files/figure-html/markersroc-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -439,10 +439,10 @@ DoHeatmap(Fib, features = top10$gene) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>An example preprint / working paper</title>
-      <link>/new/publication/preprint/</link>
+      <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/publication/preprint/</guid>
+      <guid>/publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -455,10 +455,10 @@ DoHeatmap(Fib, features = top10$gene) + NoLegend()&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Slides</title>
-      <link>/new/slides/example/</link>
+      <link>/slides/example/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/new/slides/example/</guid>
+      <guid>/slides/example/</guid>
       <description>
 
 &lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
@@ -637,29 +637,29 @@ $$&lt;/p&gt;
     
     <item>
       <title>Privacy Policy</title>
-      <link>/new/privacy/</link>
+      <link>/privacy/</link>
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
       
-      <guid>/new/privacy/</guid>
+      <guid>/privacy/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>External Project</title>
-      <link>/new/project/external-project/</link>
+      <link>/project/external-project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/new/project/external-project/</guid>
+      <guid>/project/external-project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Internal Project</title>
-      <link>/new/project/internal-project/</link>
+      <link>/project/internal-project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/new/project/internal-project/</guid>
+      <guid>/project/internal-project/</guid>
       <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
 
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
@@ -674,10 +674,10 @@ $$&lt;/p&gt;
     
     <item>
       <title>An example journal article</title>
-      <link>/new/publication/journal-article/</link>
+      <link>/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>/new/publication/journal-article/</guid>
+      <guid>/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -696,10 +696,10 @@ $$&lt;/p&gt;
     
     <item>
       <title>An example conference paper</title>
-      <link>/new/publication/conference-paper/</link>
+      <link>/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>/new/publication/conference-paper/</guid>
+      <guid>/publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
